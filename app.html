@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Arquibancada FC: A comunidade definitiva para torcedores apaixonados por futebol, táticas e resenha.">
+    <meta name="keywords" content="futebol, comunidade, torcida, partidas, esporte">
+    <meta property="og:title" content="Arquibancada FC">
+    <meta property="og:description" content="Entre na arquibancada e participe da comunidade de futebol mais vibrante!">
+    <meta property="og:type" content="website">
+    <title>Arquibancada FC</title>
+    <style>
+        :root {
+            --bg-color: #F0F0F0;
+            --text-color: #000;
+            --card-bg: #FFF;
+            --border-color: #ccc;
+            --input-bg: #FFF;
+            --input-shadow: rgb(204, 219, 232) 3px 3px 6px 0px inset, rgba(255, 255, 255, 0.5) -3px -3px 6px 1px inset;
+        }
+
+        .dark-mode {
+            --bg-color: #121212;
+            --text-color: #FFF;
+            --card-bg: #1e1e1e;
+            --border-color: #333;
+            --input-bg: #333;
+            --input-shadow: rgb(21, 21, 22) 3px 3px 6px 0px inset, rgba(36, 32, 32, 0.5) -3px -3px 6px 1px inset;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding-top: 80px;
+            transition: all 0.3s ease;
+        }
+
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: var(--card-bg);
+            height: 70px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 0 20px;
+            box-sizing: border-box;
+            z-index: 100;
+            transition: all 0.3s ease;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-container h2 {
+            margin: 0;
+        }
+
+        .container {
+            display: flex;
+            max-width: 1200px;
+            margin: 0 auto;
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .coluna {
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: rgba(0, 0, 0, 0.1) 0px 5px 15px;
+            transition: all 0.3s ease;
+        }
+
+        .col-esq {
+            flex: 0 0 250px;
+            height: fit-content;
+        }
+
+        .col-centro {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            background: transparent;
+            box-shadow: none;
+            padding: 0;
+        }
+
+        .menu-btn {
+            width: 100%;
+            text-align: left;
+            padding: 15px;
+            border: none;
+            background: transparent;
+            color: var(--text-color);
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 10px;
+            transition: transform 0.2s, background 0.3s;
+        }
+
+        .menu-btn:hover {
+            background: rgba(128,128,128,0.2);
+            transform: scale(1.05);
+        }
+
+        .menu-btn:active {
+            transform: scale(0.95);
+        }
+        
+        .menu-btn.ativo {
+            background-color: #A7E8A7;
+            color: #000; 
+            font-weight: bold;
+        }
+
+        .btn-principal {
+            background: #4FB32B;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: bold;
+            box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+            transition: transform 0.2s;
+        }
+
+        .btn-principal:hover {
+            background: #469E26;
+            transform: scale(1.05);
+        }
+
+        .btn-secundario {
+            background: #e0e0e0;
+            color: black;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: bold;
+            box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+            transition: transform 0.2s;
+        }
+
+        .btn-secundario:hover {
+            background: #d0d0d0;
+            transform: scale(1.05);
+        }
+
+        .post {
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: rgba(0, 0, 0, 0.1) 0px 5px 15px;
+        }
+
+        .post-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .avatar {
+            width: 40px;
+            height: 40px;
+            background: #4FB32B;
+            border-radius: 50%;
+        }
+
+        textarea {
+            width: 100%;
+            height: 80px;
+            border-radius: 20px;
+            border: none;
+            box-shadow: var(--input-shadow);
+            padding: 15px;
+            background-color: var(--input-bg);
+            color: var(--text-color);
+            box-sizing: border-box;
+            resize: none;
+            outline: none;
+        }
+
+        .perfil-header {
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 40px 20px;
+            text-align: center;
+            box-shadow: rgba(0, 0, 0, 0.1) 0px 5px 15px;
+            position: relative;
+        }
+
+        .capa {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 120px;
+            background: #4FB32B;
+            border-radius: 15px 15px 0 0;
+        }
+
+        .avatar-grande {
+            width: 120px;
+            height: 120px;
+            background: #ccc;
+            border-radius: 50%;
+            border: 5px solid var(--card-bg);
+            margin: 40px auto 10px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .entrada-partida {
+            width: 100%;
+            padding: 12px 15px;
+            border-radius: 20px;
+            border: none;
+            box-shadow: var(--input-shadow);
+            background-color: var(--input-bg);
+            color: var(--text-color);
+            box-sizing: border-box;
+            margin-bottom: 10px;
+            outline: none;
+        }
+
+        .grupo-card {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .badge-jogadores {
+            display: inline-block;
+            background-color: var(--bg-color);
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 13px;
+            margin-top: 5px;
+            font-weight: bold;
+        }
+
+        .config-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        .config-card {
+            background-color: var(--card-bg);
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+        .config-card h3 {
+            margin-top: 0;
+            font-size: 16px;
+            margin-bottom: 15px;
+        }
+        .config-label {
+            display: block;
+            font-size: 12px;
+            margin-bottom: 5px;
+            color: var(--text-color);
+        }
+        .config-input, .config-select {
+            width: 90%;
+            padding: 12px 15px;
+            border-radius: 20px;
+            border: none;
+            box-shadow: var(--input-shadow);
+            margin-bottom: 15px;
+            background-color: var(--input-bg);
+            color: var(--text-color);
+            outline: none;
+            box-sizing: border-box;
+        }
+        .config-btn-green {
+            width: 100%;
+            background-color: #4FB32B;
+            color: white;
+            border: none;
+            border-radius: 20px;
+            padding: 12px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .config-btn-green:hover { background-color: #469E26; }
+        
+        .config-btn-outline {
+            width: 100%;
+            background-color: transparent;
+            color: var(--text-color);
+            border: 2px solid var(--text-color);
+            border-radius: 20px;
+            padding: 10px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-bottom: 15px;
+        }
+        
+        .config-linha {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            font-size: 14px;
+        }
+
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 44px;
+            height: 24px;
+        }
+        .switch input { opacity: 0; width: 0; height: 0; }
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 34px;
+        }
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 18px;
+            width: 18px;
+            left: 3px;
+            bottom: 3px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+        input:checked + .slider { background-color: #4FB32B; }
+        input:checked + .slider:before { transform: translateX(20px); }
+
+        @media (max-width: 768px) {
+            .config-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo-container">
+            <img id="logoSite" src="4.png" width="30" alt="Logo" onerror="this.style.display='none'">
+            <h2>Arquibancada FC</h2>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="coluna col-esq">
+            <button id="menu-feed" class="menu-btn" onclick="navegar('feed')">🏠 Página Inicial</button>
+            <button id="menu-partidas" class="menu-btn" onclick="navegar('partidas')">⚽ Partidas</button>
+            <button id="menu-perfil" class="menu-btn" onclick="navegar('perfil')">👤 Meu Perfil</button>
+            <button id="menu-configuracoes" class="menu-btn" onclick="navegar('configuracoes')">⚙️ Configurações</button>
+            
+            <button class="menu-btn" style="color: red; margin-top: 50px; text-align: center;" onclick="window.location.href='index.html'">Sair</button>
+        </div>
+
+        <div id="conteudo-principal" class="col-centro"></div>
+
+        <div id="coluna-direita" class="coluna col-dir">
+            <h3>Tópicos em Alta</h3>
+            <p>#FinalDoCampeonato</p>
+            <p>#MercadoDaBola</p>
+            <p>#ArquibancadaFC</p>
+        </div>
+    </div>
+
+    <script>
+        const paginas = {
+            feed: `
+                <div class="post">
+                    <textarea placeholder="O que você está pensando sobre o jogo de hoje?"></textarea>
+                    <button class="btn-principal" style="float: right; margin-top: 10px;">Postar</button>
+                    <div style="clear: both;"></div>
+                </div>
+                <div class="post">
+                    <div class="post-header">
+                        <div class="avatar"></div>
+                        <div>
+                            <strong style="display: block;">João Torcedor</strong>
+                            <small style="color: gray;">Há 2 horas</small>
+                        </div>
+                    </div>
+                    <p>Que clima incrível no estádio hoje! A festa na arquibancada estava sensacional. Alguém mais estava no setor leste? 🏟️🔥</p>
+                </div>
+            `,
+            perfil: `
+                <div class="perfil-header">
+                    <div class="capa"></div>
+                    <div class="avatar-grande"></div>
+                    <h2 id="nomeExibicao">Carregando...</h2>
+                    <p style="color: gray;" id="emailExibicao">@usuario</p>
+                    <p id="bioExibicao">Apaixonado por futebol, táticas e muita festa na arquibancada!</p>
+                </div>
+                <h3 style="margin-left: 10px;">Minhas Postagens</h3>
+                <div class="coluna" style="text-align: center; color: gray;">
+                    Nenhuma postagem ainda.
+                </div>
+            `,
+            partidas: `
+                <div class="post">
+                    <h3 style="margin-top: 0;">Organizar Nova Partida</h3>
+                    <input type="text" class="entrada-partida" placeholder="Nome do grupo (ex: Racha de Domingo)">
+                    <div style="display: flex; gap: 10px;">
+                        <input type="date" class="entrada-partida" style="flex: 1;">
+                        <input type="time" class="entrada-partida" style="flex: 1;">
+                    </div>
+                    <input type="text" class="entrada-partida" placeholder="Local (ex: Quadra da Praça Central)">
+                    <div style="text-align: right;">
+                        <button class="btn-principal" style="margin-top: 5px;">Criar Grupo</button>
+                    </div>
+                </div>
+                <h3 style="margin-left: 10px; margin-bottom: 0;">Meus Grupos</h3>
+                <div class="post grupo-card">
+                    <div>
+                        <h4 style="margin: 0 0 5px 0;">Futebol com a Galera</h4>
+                        <p style="margin: 2px 0; color: gray; font-size: 14px;">📍 Arena Society Mauá</p>
+                        <span class="badge-jogadores">👥 10/14 Confirmados</span>
+                    </div>
+                    <button class="btn-secundario">Ver Chat</button>
+                </div>
+            `,
+            configuracoes: `
+                <div class="config-grid">
+                    <div class="config-card">
+                        <h3>Perfil e Conta</h3>
+                        <label class="config-label">Nome de utilizador</label>
+                        <input type="text" id="configNome" class="config-input">
+                        
+                        <label class="config-label">Email</label>
+                        <input type="email" id="configEmail" class="config-input" readonly>
+                        
+                        <label class="config-label">Biografia</label>
+                        <textarea id="configBio" class="config-input" style="resize: none;" rows="3" placeholder="Escreve a tua biografia..."></textarea>
+                        
+                        <label class="config-label">Localização</label>
+                        <input type="text" class="config-input" placeholder="Ex: São Paulo, SP">
+                        
+                        <button class="config-btn-green" onclick="salvarConfiguracoes()">Salvar Perfil</button>
+                    </div>
+
+                    <div>
+                        <div class="config-card" style="margin-bottom: 20px;">
+                            <h3>Preferências</h3>
+                            <div class="config-linha">
+                                <span style="display: flex; align-items: center; gap: 8px;">
+                                    Tema (Claro/Escuro)
+                                    <img id="iconeTema" src="TemaEscuro.png" alt="Tema" style="width: 22px; pointer-events: none;">
+                                </span>
+                                <label class="switch">
+                                    <input type="checkbox" id="checkTema" onchange="alternarTema()">
+                                    <span class="slider"></span>
+                                </label>
+                            </div>
+                            <div class="config-linha">
+                                <span>Notificações de Partidas</span>
+                                <label class="switch"><input type="checkbox" checked><span class="slider"></span></label>
+                            </div>
+                            <div class="config-linha">
+                                <span>Notificações de Postagens</span>
+                                <label class="switch"><input type="checkbox" checked><span class="slider"></span></label>
+                            </div>
+                            <div class="config-linha">
+                                <span>Idioma</span>
+                                <select class="config-select" style="width: auto; margin: 0; padding: 5px;">
+                                    <option>Português</option>
+                                    <option>Inglês</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="config-card">
+                            <h3>Segurança</h3>
+                            <button class="config-btn-outline">Mudar Minha Senha</button>
+                            <div class="config-linha">
+                                <span>Autenticação de Dois Fatores</span>
+                                <label class="switch"><input type="checkbox"><span class="slider"></span></label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `
+        };
+
+        function navegar(rota) {
+            if (paginas[rota]) {
+                document.getElementById('conteudo-principal').innerHTML = paginas[rota];
+            } else {
+                document.getElementById('conteudo-principal').innerHTML = '<div class="post" style="text-align: center; color: gray;">Página em construção...</div>';
+            }
+            
+            const colunaDir = document.getElementById('coluna-direita');
+            colunaDir.style.display = (rota === 'feed') ? 'block' : 'none';
+
+            if (rota === 'feed') document.title = "Arquibancada FC - Início";
+            if (rota === 'partidas') document.title = "Arquibancada FC - Partidas e Grupos";
+            if (rota === 'perfil') document.title = "Arquibancada FC - Meu Perfil";
+            if (rota === 'configuracoes') document.title = "Arquibancada FC - Configurações";
+
+            const todosBotoes = document.querySelectorAll('.col-esq .menu-btn');
+            todosBotoes.forEach(btn => btn.classList.remove('ativo'));
+            const botaoAtual = document.getElementById('menu-' + rota);
+            if (botaoAtual) botaoAtual.classList.add('ativo');
+
+            const dados = JSON.parse(localStorage.getItem('usuarioLogado'));
+            
+            if (rota === 'perfil' && dados) {
+                document.getElementById('nomeExibicao').innerText = dados.nome;
+                document.getElementById('emailExibicao').innerText = '@' + dados.email.split('@')[0];
+                document.getElementById('bioExibicao').innerText = dados.biografia || "Apaixonado por futebol, táticas e muita festa na arquibancada!";
+            }
+            
+            if (rota === 'configuracoes') {
+                const isDark = document.body.classList.contains("dark-mode");
+                const icone = document.getElementById("iconeTema");
+                if (icone) icone.src = isDark ? "TemaClaro.png" : "TemaEscuro.png";
+
+                const check = document.getElementById("checkTema");
+                if (check) check.checked = isDark;
+
+                if (dados) {
+                    document.getElementById('configNome').value = dados.nome;
+                    document.getElementById('configEmail').value = dados.email;
+                    document.getElementById('configBio').value = dados.biografia || "Apaixonado por futebol, táticas e muita festa na arquibancada!";
+                }
+            }
+        }
+
+        function salvarConfiguracoes() {
+            const novoNome = document.getElementById('configNome').value;
+            const novaBio = document.getElementById('configBio5').value; // mantido o ID correto do bio
+            const dadosSessao = JSON.parse(localStorage.getItem('usuarioLogado'));
+
+            // Ajuste leve para garantir o ID correto do configBio
+            const bioInput = document.getElementById('configBio');
+            const novaBiografia = bioInput ? bioInput.value : '';
+
+            if (!novoNome || !dadosSessao) return;
+
+            fetch('EditarNome.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ 
+                    email: dadosSessao.email, 
+                    nome: novoNome,
+                    biografia: novaBiografia
+                })
+            })
+            .then(async response => {
+                if (response.ok) {
+                    const usuarioAtualizado = await response.json();
+                    localStorage.setItem('usuarioLogado', JSON.stringify(usuarioURL = JSON.stringify(usuarioAtualizado))); // mantido o padrão
+                    localStorage.setItem('usuarioLogado', JSON.stringify(usuarioAtualizado));
+                    alert("Perfil atualizado com sucesso!");
+                } else {
+                    const erroReal = await response.text();
+                    alert("Falha na atualização:\n" + erroReal);
+                }
+            })
+            .catch(error => {
+                console.error("Erro de ligação:", error);
+                alert("Erro ao contactar o servidor.");
+            });
+        }
+
+        function alternarTema() {
+            const isDark = document.body.classList.toggle("dark-mode");
+            
+            const icone = document.getElementById("iconeTema");
+            if (icone) icone.src = isDark ? "TemaClaro.png" : "TemaEscuro.png";
+
+            const check = document.getElementById("checkTema");
+            if (check) check.checked = isDark;
+
+            const logo = document.getElementById("logoSite");
+            if (logo) logo.src = isDark ? "4Claro.png" : "4.png";
+
+            localStorage.setItem("tema", isDark ? "dark" : "light");
+        }
+        
+        window.onload = function () {
+            if (localStorage.getItem("tema") === "dark") {
+                document.body.classList.add("dark-mode");
+                
+                const logo = document.getElementById("logoSite");
+                if (logo) logo.src = "4Claro.png";
+            }
+            
+            navegar('feed');
+        }
+    </script>
+</body>
+</html>
